@@ -12,21 +12,21 @@ const Register = () => {
               <label htmlFor="">
                 Email <span className="text-red-600">*</span>
               </label>
-              <input type="email" placeholder="Masukkan Email" className=" rounded-md outline-none focus:border-primary-color border required:ring-red-600 px-4 py-2 focus:ring-primary-color focus:ring-1" required />
+              <input type="email" placeholder="Enter your Email" className=" rounded-md outline-none focus:border-primary-color border required:ring-red-600 px-4 py-2 focus:ring-primary-color focus:ring-1" required />
               <label htmlFor="">
                 No Handphone <span className="text-red-600">*</span>
               </label>
               <input
                 type="tel"
                 pattern="^(\+62|62|0)8[1-9][0-9]{6,9}$"
-                placeholder="Masukkan No Handphone"
+                placeholder="Enter Your No Handphone"
                 className=" rounded-md outline-none focus:border-primary-color border required:ring-red-600 px-4 py-2  focus:ring-primary-color focus:ring-1"
                 required
               />
               <label htmlFor="">
                 Password <span className="text-red-600">*</span>
               </label>
-              <input type="password" placeholder="Masukkan Password" className=" rounded-md outline-none focus:border-primary-color border required:ring-red-600 px-4 py-2 focus:ring-primary-color focus:ring-1" required />
+              <input type="password" placeholder="Enter Your Password" className=" rounded-md outline-none focus:border-primary-color border required:ring-red-600 px-4 py-2 focus:ring-primary-color focus:ring-1" required />
               <Link to="/" className="py-2.5 px-4 text-center bg-primary-color text-white rounded-md font-base font-medium hover:bg-purple-800 mt-4" type="submit">
                 Register
               </Link>
@@ -34,7 +34,7 @@ const Register = () => {
             <div className="mt-[1.5rem] w-full flex sm:justify-between justify-center items-center flex-wrap gap-y-8">
               <div className="text-center w-full">
                 <h1>
-                  Sudah Memiliki Account?{' '}
+                  Already have an account?{' '}
                   <Link to="/login">
                     <span className="text-[#1A1A8D] cursor-pointer hover:underline">Login</span>
                   </Link>

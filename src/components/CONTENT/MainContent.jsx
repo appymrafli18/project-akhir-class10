@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Card from './Card';
-import { getProductCategory } from '../../API';
 
 import { A11y, Scrollbar, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/scrollbar';
+import { useShow } from '../../context/ShowProduct';
 
-const MainContent = (props) => {
-  const [category, setCategory] = useState([]);
-  const [handphone, setHandphone] = useState([]);
-  useEffect(() => {
-    getProductCategory('laptop').then((res) => {
-      setCategory(res);
+const MainContent = () => {
+  const { data } = useShow();
+  const [product, setProduct] = useState(data);
+  const filterCategory = product.filter((item) => item.category === 'Laptop');
+  const filterLoved = product.filter((item) => item.loved);
+
+  const handleLoved = (id) => {
+    // console.log(id);
+    setProduct((prev) => {
+      const arrNew = [...prev];
+      arrNew.forEach((item) => {
+        if (item.id === id) {
+          item.loved = !item.loved;
+        }
+      });
+      return arrNew;
     });
+  };
 
-    getProductCategory('handphone').then((res) => {
-      setHandphone(res);
-    });
-  }, []);
-
-  const { product } = props;
   return (
     <>
       <div id="content" className="w-full min-h-screen py-10">
@@ -29,9 +34,9 @@ const MainContent = (props) => {
           <div className="mb-24">
             <h1 className="font-bold lg:text-3xl text-2xl my-4">Laptop For You!</h1>
             <div className="flex flex-col flex-wrap md:flex-row items-center gap-4">
-              {category.data?.map((result, index) => (
+              {filterCategory.map((value, index) => (
                 <div key={index + 1}>
-                  <Card name={result.name} productId={result.id} description={result.description} price={result.price} images={result.url_images} />
+                  <Card name={value.name} stock={value.stock} description={value.description} image={value.image} handleLoved={handleLoved} productId={value.id} price={value.price} boolLoved={value.loved} />
                 </div>
               ))}
             </div>
@@ -73,9 +78,9 @@ const MainContent = (props) => {
               }}
               scrollbar={{ draggable: true, hide: true }}
             >
-              {product.data?.map((result, index) => (
+              {product.map((value, index) => (
                 <SwiperSlide key={index + 1}>
-                  <Card productId={result.id} name={result.name} description={result.description} price={result.price} images={result.url_images} />
+                  <Card name={value.name} stock={value.stock} description={value.description} image={value.image} handleLoved={handleLoved} productId={value.id} price={value.price} boolLoved={value.loved} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -117,9 +122,9 @@ const MainContent = (props) => {
               }}
               scrollbar={{ draggable: true, hide: true }}
             >
-              {handphone.data?.map((result, index) => (
+              {filterLoved.map((value, index) => (
                 <SwiperSlide key={index + 1}>
-                  <Card productId={result.id} name={result.name} description={result.description} price={result.price} images={result.url_images} />
+                  <Card name={value.name} stock={value.stock} description={value.description} image={value.image} handleLoved={handleLoved} productId={value.id} price={value.price} boolLoved={value.loved} />
                 </SwiperSlide>
               ))}
             </Swiper>

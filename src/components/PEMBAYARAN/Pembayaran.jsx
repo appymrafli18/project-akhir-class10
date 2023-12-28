@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
-import { QuantityContext } from '../../context/Quantity';
+import { usePayment } from '../../context/PaymentProduct';
+import currency from '../../currency';
 
 const Pembayaran = () => {
   const navigate = useNavigate();
-
-  const { valueQuan,value, item, currencyRupiah } = useContext(QuantityContext);
-
-  console.log(valueQuan);
+  const { payment } = usePayment();
+  const currencyRupiah = currency(payment.price);
 
   const successfully = (e) => {
-    // console.log(e);
+    e.preventDefault();
     swal('Pembelian Berhasil !', 'Thanks For Buying on GoShop', 'success');
     setTimeout(() => {
       navigate('/');
@@ -22,23 +21,23 @@ const Pembayaran = () => {
     <>
       <div className="w-full h-screen">
         <div className="container mx-auto">
-          <div className="flex mt-4 flex-col md:flex-row gap-x-4">
+          <div className="flex mt-4 flex-col md:flex-row gap-x-4 bg-red-50 mb-40 md:mb-20 px-4">
             <div className="w-full md:w-2/4 min-h-full">
               {/* Item Buy */}
               <div className="border-color-gray border-solid border-2 rounded-xl mb-4 px-4 py-8">
                 <h1 className="text-xl md:text-2xl font-semibold my-4">Product Yang Di Beli</h1>
                 <div className="flex items-center gap-4 flex-col lg:flex-row">
                   <div className="min-w-[200px] min-h-[200px] rounded-xl bg-color-gray max-w-[200px] max-h-[200px] flex items-center justify-center">
-                    <img src={item.data?.url_images} alt={item.data?.name} className="max-w-[180px]" />
+                    <img src={payment.image} alt={payment.name} className="max-w-[180px]" />
                   </div>
-                  <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center justify-between w-full flex-wrap gap-y-4">
                     <div className="gap-y-2">
-                      <h1 className="text-xl font-semibold max-w-[200px] max-h-[50px]">{item.data?.name}</h1>
+                      <h1 className="text-xl font-semibold max-w-[200px] max-h-[50px]">{payment.name}</h1>
                       <p className="font-medium text-base">Color : White</p>
                     </div>
                     <div className="gap-y-2">
                       <h1 className="text-xl font-semibold text-right">{currencyRupiah}</h1>
-                      <p className="font-medium text-base text-right">Total : {value}</p>
+                      <p className="font-medium text-base text-right">Total : {payment.total}</p>
                     </div>
                   </div>
                 </div>
@@ -47,9 +46,9 @@ const Pembayaran = () => {
 
               {/* Information */}
               <div className="border-color-gray border-solid border-2 rounded-xl px-4 py-8">
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                   <h1 className="text-2xl font-semibold">Information</h1>
-                  <div className="text-sm py-2 px-4 md:text-base font-medium md:py-3 md:px-6 bg-color-gray rounded-full cursor-pointer hover:bg-[#C2C2C2]">Edit Information</div>
+                  <div className="text-sm py-2 px-4 md:text-base font-medium bg-color-gray rounded-full cursor-pointer hover:bg-[#C2C2C2]">Edit Information</div>
                 </div>
                 <div className="flex flex-col gap-y-6">
                   <p>
@@ -74,12 +73,12 @@ const Pembayaran = () => {
               </div>
               {/* Information */}
             </div>
-            <div className="w-full md:w-2/4 min-h-full border-color-gray border-solid border-2 rounded-xl px-4 py-8">
-              <div className="flex flex-col gap-y-5">
+            <div className="w-full md:w-2/4 min-h-full mt-4 mb-20 md:mt-0 md:mb-0 border-color-gray border-solid border-2 rounded-xl px-4 py-8">
+              <div className="flex flex-col gap-y-5 ">
                 <h1 className="text-xl md:text-2xl font-semibold">Metode Pembayaran</h1>
-                <div className="rounded-full max-w-[320px]">
-                  <div className="w-full flex items-center justify-between px-2 bg-color-gray rounded-full">
-                    <input type="text" placeholder="Masukkan Kode Coupon" className="py-2 px-4 outline-none bg-transparent" />
+                <div className="rounded-full">
+                  <div className="w-full flex items-center flex-wrap gap-x-4 gap-y-2">
+                    <input type="text" placeholder="Masukkan Kode Coupon" className="bg-color-gray rounded-full py-4 px-4 outline-none" />
                     <button className="bg-primary-color text-white px-8 py-4 rounded-full hover:bg-[#592D97]">Enter</button>
                   </div>
                 </div>

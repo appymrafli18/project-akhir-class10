@@ -33,8 +33,8 @@ const Navbar = () => {
         {/* Nav 1 */}
         <div className="bg-primary-color">
           <div className="container mx-auto">
-            <h1 className="text-center text-[12px] sm:text-sm font-medium py-4 text-secondary-color">
-              Nikmati penawaran terbaik kami ! Dapatkan barang impian Anda dengan harga yang jauh <span className="text-green-500 cursor-pointer underline underline-offset-4 decoration-solid">lebih murah.</span>
+            <h1 className="text-center text-[12px] sm:text-sm font-medium py-4 mx-4 text-secondary-color">
+              Enjoy our best deals! Get your dream item at a much <span className="text-green-500 cursor-pointer underline underline-offset-4 decoration-solid">cheaper price.</span>
             </h1>
           </div>
         </div>
@@ -95,7 +95,7 @@ const Navbar = () => {
               {/* List */}
 
               {/* Search Bar */}
-              <div className="w-[70%] lg:w-[25%] flex items-center justify-center bg-color-gray rounded-full">
+              <div className="sm:w-[70%] w-[60%] lg:w-[25%] flex items-center justify-center bg-color-gray rounded-full">
                 <input type="text" className="bg-color-gray rounded-full outline-none w-full px-8 py-2" placeholder="Cari product yang anda inginkan" />
                 <img src={defineSearch} alt="search" className="mr-4 w-[20px]" />
               </div>

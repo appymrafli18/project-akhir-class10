@@ -1,32 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ButtonTambahKeranjang from './ButtonTambahKeranjang';
 import { Link } from 'react-router-dom';
+import { useDetail } from '../../context/DetailProduct';
+import currency from '../../currency.js';
 
-const Card = (props) => {
-  const { name, description, images, productId, price } = props;
+const Card = ({ name, description, productId, price, boolLoved, handleLoved, image, stock }) => {
+  const currencyRupiah = currency(price);
 
-  const currencyRupiah = new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
+  const { setDetail } = useDetail();
 
-  const [love, setLove] = useState(false);
+  const handleDetail = (id) => {
+    if (id === productId) {
+      const datas = {
+        id: productId,
+        name,
+        description,
+        image,
+        price,
+        stock,
+      };
 
-  const redLove = () => {
-    setLove(!love);
+      // console.log(datas);
+      setDetail(datas);
+    }
   };
 
   return (
     <>
       <div className="w-[200px] cursor-pointer min-h-full max-h-[350px] flex flex-col items-start rounded-xl">
         <div className="w-full relative">
-          <img src={images} alt="200x200" className="w-full h-[200px] object-cover bg-color-gray rounded-xl" />
+          <img src={image} alt="200x200" className="w-full h-[200px] object-cover bg-color-gray rounded-xl" />
           <button
-            onClick={redLove}
+            onClick={() => handleLoved(productId)}
             className={
-              love
+              boolLoved
                 ? `w-7 h-7 hover:text-[#F01D1D] text-[#F01D1D] rounded-full bg-secondary-color absolute top-2 right-2 transition-all duration-500 ease-in`
                 : `w-7 h-7 hover:text-[#F01D1D] text-[#black] rounded-full bg-secondary-color absolute top-2 right-2 transition-all duration-500 ease-in`
             }
@@ -47,7 +54,7 @@ const Card = (props) => {
             <i className="fa-solid fa-star text-color-stars"></i>
             <i className="fa-solid fa-star-half-stroke text-color-stars"></i>
           </div>
-          <Link to={`/detail/${productId}`}>
+          <Link to={`/detail/${productId}`} onClick={() => handleDetail(productId)}>
             <ButtonTambahKeranjang />
           </Link>
         </div>

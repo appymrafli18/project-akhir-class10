@@ -1,17 +1,18 @@
 import React from 'react';
+import MainContent from '../CONTENT/MainContent';
 import Navbar from '../NAV/Navbar';
 import Header from '../HEADER/Header';
-import MainContent from '../CONTENT/MainContent';
 import Footer from '../FOOTER/Footer';
+import ShowProvider from '../../context/ShowProduct';
 
-const Homepages = (props) => {
-  const {product} = props;
-  // console.log(product);
+const Homepages = () => {
   return (
     <>
       <Navbar />
       <Header />
-      <MainContent product={product}/>
+      <ShowProvider>
+        <MainContent />
+      </ShowProvider>
       <Footer />
     </>
   );
